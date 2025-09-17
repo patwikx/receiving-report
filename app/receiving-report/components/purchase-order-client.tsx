@@ -106,27 +106,23 @@ const PurchaseOrderClient: React.FC = () => {
   };
 
   return (
-    <div className="flex h-screen bg-gray-50">
+    <div className="h-screen bg-gray-50 flex flex-col">
       <Header 
         selectedPO={selectedPO}
         onPrint={handlePrint}
         onExport={handleExport}
       />
 
-      <div className="flex w-full pt-20">
+      <div className="flex flex-1 overflow-hidden">
         <Sidebar
           purchaseOrders={purchaseOrders}
           selectedDocNum={selectedDocNum}
           loading={loading}
           error={error}
           searchTerm={searchTerm}
-          currentPage={currentPage}
-          totalPages={totalPages}
           onSearchChange={setSearchTerm}
           onSearch={handleSearch}
           onPOSelect={fetchPurchaseOrderDetail}
-          onPrevious={() => {}}
-          onNext={() => {}}
         />
 
         <div className="flex-1 flex flex-col">

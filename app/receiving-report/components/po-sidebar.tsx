@@ -15,13 +15,9 @@ interface SidebarProps {
   loading: boolean;
   error: string | null;
   searchTerm: string;
-  currentPage: number;
-  totalPages: number;
   onSearchChange: (value: string) => void;
   onSearch: () => void;
   onPOSelect: (docNum: number) => void;
-  onPrevious: () => void;
-  onNext: () => void;
 }
 
 const Sidebar: React.FC<SidebarProps> = ({
@@ -30,15 +26,52 @@ const Sidebar: React.FC<SidebarProps> = ({
   loading,
   error,
   searchTerm,
-  currentPage,
-  totalPages,
   onSearchChange,
   onSearch,
   onPOSelect,
-  onPrevious,
-  onNext
-}) => (
-  <div className="w-80 bg-white border-r border-gray-200 flex flex-col">
+}) => {
+  return (
+    <div className="w-80 bg-white border-r border-gray-200 flex flex-col h-full">
+      <SearchBar 
+        searchTerm={searchTerm}
+        onSearchChange={onSearchChange}
+        onSearch={onSearch}
+      />
+      
+      <Stats 
+        totalPOs={purchaseOrders.length}
+        activePOs={purchaseOrders.filter(po => po.status.toLowerCase() === 'open' || po.status.toLowerCase() === 'o').length}
+      />
+      
+      {error && <ErrorDisplay error={error} />}
+      
+      <div className="flex-1 overflow-hidden">
+        <ScrollArea className="h-full">
+          <div className="divide-y divide-gray-200">
+            {loading ? (
+              <div className="p-4 text-center text-gray-500">
+                Loading purchase orders...
+              </div>
+            ) : purchaseOrders.length === 0 ? (
+              <div className="p-4 text-center text-gray-500">
+                No purchase orders found
+              </div>
+            ) : (
+              purchaseOrders.map((po) => (
+                <POListItem
+                  key={po.docNum}
+                  po={po}
+                  isSelected={selectedDocNum === po.docNum}
+                  onClick={() => onPOSelect(po.docNum)}
+                />
+              ))
+            )}
+          </div>
+        </ScrollArea>
+      </div>
+    </div>
+  );
+};
     <SearchBar 
       searchTerm={searchTerm}
       onSearchChange={onSearchChange}

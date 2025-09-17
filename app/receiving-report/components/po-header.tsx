@@ -12,7 +12,7 @@ interface HeaderProps {
 }
 
 const Header: React.FC<HeaderProps> = ({ selectedPO, onPrint, onExport }) => (
-  <div className="absolute top-0 left-0 right-0 z-10 bg-white border-b border-gray-200 px-6 py-4 shadow-sm">
+  <div className="bg-white border-b border-gray-200 px-6 py-4 shadow-sm flex-shrink-0">
     <div className="flex justify-between items-center">
       <div>
         <h1 className="text-3xl font-bold text-gray-900 flex items-center gap-3">
