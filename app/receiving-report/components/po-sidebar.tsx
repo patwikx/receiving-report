@@ -74,14 +74,6 @@ const Sidebar: React.FC<SidebarProps> = ({
         )}
       </div>
     </ScrollArea>
-    
-    <Pagination
-      currentPage={currentPage}
-      totalPages={totalPages}
-      loading={loading}
-      onPrevious={onPrevious}
-      onNext={onNext}
-    />
   </div>
 );
 

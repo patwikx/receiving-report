@@ -20,13 +20,12 @@ const PurchaseOrderClient: React.FC = () => {
   const [error, setError] = useState<string | null>(null);
 
   // Fetch PO list
-  const fetchPurchaseOrders = async (page = 1, vendor = '') => {
+  const fetchPurchaseOrders = async (vendor = '') => {
     setLoading(true);
     setError(null);
     try {
       const params = new URLSearchParams({
-        page: page.toString(),
-        limit: '6',
+        limit: '0', // Get all records
         vendor
       });
       
@@ -45,8 +44,8 @@ const PurchaseOrderClient: React.FC = () => {
       
       if (data.success) {
         setPurchaseOrders(data.data);
-        setTotalPages(data.pagination.totalPages);
-        setCurrentPage(page);
+        setTotalPages(1);
+        setCurrentPage(1);
       } else {
         throw new Error(data.error || 'Failed to fetch purchase orders');
       }
@@ -91,11 +90,11 @@ const PurchaseOrderClient: React.FC = () => {
   };
 
   useEffect(() => {
-    fetchPurchaseOrders();
+    fetchPurchaseOrders('');
   }, []);
 
   const handleSearch = () => {
-    fetchPurchaseOrders(1, searchTerm);
+    fetchPurchaseOrders(searchTerm);
   };
 
   const handlePrint = () => {
@@ -126,8 +125,8 @@ const PurchaseOrderClient: React.FC = () => {
           onSearchChange={setSearchTerm}
           onSearch={handleSearch}
           onPOSelect={fetchPurchaseOrderDetail}
-          onPrevious={() => fetchPurchaseOrders(currentPage - 1, searchTerm)}
-          onNext={() => fetchPurchaseOrders(currentPage + 1, searchTerm)}
+          onPrevious={() => {}}
+          onNext={() => {}}
         />
 
         <div className="flex-1 flex flex-col">

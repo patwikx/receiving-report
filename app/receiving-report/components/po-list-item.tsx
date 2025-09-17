@@ -2,7 +2,7 @@
 import React from 'react';
 import { Badge } from '@/components/ui/badge';
 import { PurchaseOrderListItem } from '@/types/po-types';
-import { formatCurrency, formatDate, getStatusBadgeVariant, getStatusIcon } from '@/lib/po-utils';
+import { formatCurrency, formatDate, getStatusBadgeVariant, getStatusIcon, getStatusLabel } from '@/lib/po-utils';
 
 
 
@@ -31,7 +31,7 @@ const POListItem: React.FC<POListItemProps> = ({ po, isSelected, onClick }) => {
           className="flex items-center gap-1"
         >
           <StatusIcon className="w-4 h-4" />
-          {po.status}
+          {getStatusLabel(po.status)}
         </Badge>
       </div>
       
